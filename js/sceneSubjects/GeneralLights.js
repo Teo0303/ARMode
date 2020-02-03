@@ -12,8 +12,8 @@ function GeneralLights(scene) {
 
   const light = new THREE.PointLight("#fff", 0.2);
   // scene.add(light);
-    scene.add(ambientLight);
-  // scene.add(hemisphereLight);
+  scene.add(ambientLight);
+  scene.add(hemisphereLight);
   // scene.add(spotLight);
 
   this.update = function(time) {

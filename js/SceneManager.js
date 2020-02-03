@@ -151,6 +151,16 @@ function SceneManager(canvas) {
   this.onMouseUp = function(evt) {
     this.mouseDown = false;
     document.getElementsByTagName("body")[0].style.cursor = "default";
+
+    let movementX =
+      evt.movementX || evt.mozMovementX || evt.webkitMovementX || 0;
+    let movementY =
+      evt.movementY || evt.mozMovementY || evt.webkitMovementY || 0;
+
+    // camera.rotation.y -= -movementX / Power1.easeIn.getRatio(0.5);
+    // camera.rotation.x -= -movementY / Power1.easeIn.getRatio(0.5);
+
+    console.log();
   };
 
   this.onMouseMove = function(evt) {
@@ -175,8 +185,8 @@ function SceneManager(canvas) {
     if (this.mouseDown) {
       document.getElementsByTagName("body")[0].style.cursor = "grabbing";
 
-      camera.rotation.y -= -movementX / 600;
-      camera.rotation.x -= -movementY / 600;
+      camera.rotation.y -= (-movementX / 600) * Power3.easeOut(1);
+      camera.rotation.x -= (-movementY / 600) * Power3.easeOut(1);
     }
 
     mouse.set(

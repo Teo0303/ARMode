@@ -1,8 +1,9 @@
 function RoomModel(scene, sphereCamera) {
-  const loader = new THREE.GLTFLoader();
+  let loadingManager = new LoadingManager();
+  const loader = new THREE.GLTFLoader(loadingManager);
   let floor;
   let objects = [];
-  var texture = new THREE.TextureLoader().load(
+  var texture = new THREE.TextureLoader(loadingManager).load(
     "https://marketplace.canva.com/MAC2ik6BwYQ/1/thumbnail_large-1/canva-seamless-wood-floor-texture-MAC2ik6BwYQ.jpg"
   );
   texture.wrapS = THREE.RepeatWrapping;
@@ -10,7 +11,7 @@ function RoomModel(scene, sphereCamera) {
   texture.repeat.set(8, 8);
   texture.flipY = false;
 
-  var carpet = new THREE.TextureLoader().load(
+  var carpet = new THREE.TextureLoader(loadingManager).load(
     "https://static.turbosquid.com/Preview/2016/04/06__11_17_10/Carpit_Gray_Brown_Yellow_Lack_COLOR.png71f3153b-3cca-4abf-a9ab-69d170b219b7Large.jpg"
   );
   carpet.wrapS = THREE.RepeatWrapping;
@@ -116,4 +117,31 @@ function RoomModel(scene, sphereCamera) {
   this.getObjects = function() {
     return objects;
   };
+}
+
+function LoadingManager() {
+  let manager = new THREE.LoadingManager(() => {});
+
+  manager.onLoad = function() {
+    // console.log(document.querySelec);
+    const loadingScreen = document.querySelector(".intro-page");
+
+    loadingScreen.classList.add("is-loaded");
+
+    loadingScreen.addEventListener("transitionend", function(e) {
+      e.target.style.display = "none";
+    });
+  };
+
+  manager.onProgress = function(url, itemsLoaded, itemsTotal) {
+    let progressElement = document.querySelector(".percent");
+    let progress = Math.floor((itemsLoaded / itemsTotal) * 100) + "%";
+    progressElement.innerHTML = progress;
+  };
+
+  manager.onError = function(url) {
+    console.log("There was an error loading " + url);
+  };
+
+  return manager;
 }
