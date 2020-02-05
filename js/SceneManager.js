@@ -3,6 +3,7 @@ function SceneManager(canvas) {
 
   this.mouseDown = false;
   var moving = false;
+  var prevTime = performance.now();
   this.touchStart = false;
 
   const screenDimensions = {
@@ -107,8 +108,6 @@ function SceneManager(canvas) {
   var vec = new THREE.Vector3();
 
   this.onMouseDown = function(evt) {
-    counter = 0;
-
     this.mouseDown = true;
     document.getElementsByTagName("body")[0].style.cursor = "grab";
 
@@ -193,6 +192,16 @@ function SceneManager(canvas) {
 
       camera.rotation.y -= -movementX / 600;
       camera.rotation.x -= -movementY / 600;
+
+      camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, camera.rotation.x));
+
+      // euler.setFromQuaternion(camera.quaternion);
+
+      // euler.y = -movementX * 6000;
+      // euler.x = -movementY * 6000;
+
+      // euler.x = Math.max(-PI_2, Math.min(PI_2, euler.x));
+      // camera.quaternion.setFromEuler(euler);
     }
 
     mouse.set(
@@ -236,6 +245,8 @@ function SceneManager(canvas) {
     if (this.touchStart) {
       camera.rotation.y -= -slideX / 10000;
       camera.rotation.x -= -slideY / 10000;
+
+      camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, camera.rotation.x));
     }
   };
 

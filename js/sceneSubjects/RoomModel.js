@@ -10,10 +10,19 @@ function RoomModel(scene, sphereCamera) {
     "js/models/CubeMap/SanFrancisco/negz.jpg"
   ];
 
+  var urls2 = [
+    "js/models/CubeMap/Yokohama/posx.jpg",
+    "js/models/CubeMap/Yokohama/negx.jpg",
+    "js/models/CubeMap/Yokohama/posy.jpg",
+    "js/models/CubeMap/Yokohama/negy.jpg",
+    "js/models/CubeMap/Yokohama/posz.jpg",
+    "js/models/CubeMap/Yokohama/negz.jpg"
+  ];
+
   var BACKGROUND_COLOR = new THREE.Color(0xf0f0f0);
   scene.background = new THREE.Color(BACKGROUND_COLOR);
   var loader2 = new THREE.CubeTextureLoader(loadingManager);
-  scene.background = loader2.load(urls);
+  scene.background = loader2.load(urls2);
 
   let floor;
   let objects = [];
