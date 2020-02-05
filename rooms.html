@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="bg-image">
+            <img src="bg.png" alt="">
+        </div>
+
+        <div class="overlay">
+            <div class="overlayed-image">
+                <div class="base"><img src="http://bizninguylar.uz/uploads/063a29ff3f50bd7eb12ade0287e1c1eb.png"
+                        alt="Карта для наведения" width="1101" height="498" class="progressive-image "
+                        style="transition: filter 0.3s linear 0s;"></div>
+                <div class="selection">
+                    <a href="showroom.html">
+                        <svg class="loaded" viewBox="0 0 1101 498">
+                            <polygon
+                                points="1093.83 268.94 1093.83 180.52 1052.12 180.52 1052.12 87.17 897.45 87.17 897.45 77.4 897.45 40.54 831.13 40.54 831.13 180.52 831.13 185.44 825.03 185.44 825.03 243.09 883.94 243.09 883.94 268.94 1093.83 268.94"
+                                class="targetable selected ">
+                            </polygon>
+                            <text>24124afsas</text>
+                            <polygon
+                                points="1093.83 268.87 1093.83 357.29 1052.12 357.29 1052.12 450.63 897.45 450.63 897.45 460.4 897.45 497.27 831.13 497.27 831.13 357.29 831.13 352.37 825.03 352.37 825.03 294.71 883.94 294.71 883.94 268.87 1093.83 268.87"
+                                class="targetable  "></polygon>
+                            <polygon
+                                points="550 63.89 613.82 63.89 613.82 45.46 712.08 45.46 712.08 236.99 693.65 236.99 693.65 252.93 693.65 253.07 647.65 253.07 647.65 268.94 550 268.94 550 63.89"
+                                class="targetable  "></polygon>
+                            <polygon
+                                points="550 63.89 486.18 63.89 486.18 45.46 387.92 45.46 387.92 236.99 406.35 236.99 406.35 252.93 406.35 253.07 452.35 253.07 452.35 268.94 550 268.94 550 63.89"
+                                class="targetable  "></polygon>
+                            <polygon
+                                points="268.87 180.52 268.87 87.17 268.87 77.4 268.87 40.54 202.55 40.54 202.55 77.4 202.55 87.17 47.88 87.17 47.88 180.52 6.17 180.52 6.17 185.44 6.17 243.09 6.17 268.94 216.06 268.94 216.06 243.09 274.96 243.09 274.96 185.44 268.87 185.44 268.87 180.52"
+                                class="targetable  "></polygon>
+                            <polygon
+                                points="268.87 357.29 268.87 450.63 268.87 460.4 268.87 497.27 202.55 497.27 202.55 460.4 202.55 450.63 47.88 450.63 47.88 357.29 6.17 357.29 6.17 352.37 6.17 294.71 6.17 268.87 216.06 268.87 216.06 294.71 274.96 294.71 274.96 352.37 268.87 352.37 268.87 357.29"
+                                class="targetable  ">
+
+                            </polygon>
+                            <polygon
+                                points="401.43 268.94 401.43 294.71 327.77 294.71 327.77 352.37 268.87 352.37 268.87 460.4 268.87 460.89 268.87 472.74 268.87 497.27 371.98 497.27 433.38 497.27 433.38 472.74 588.04 472.74 588.04 460.4 588.04 352.37 588.04 294.71 588.04 268.94 401.43 268.94"
+                                class="targetable  "></polygon>
+                            <path d="M772.23,352.37V294.71H696.08V268.94H588v205h-2.42v23.36H831.13V352.37Z"
+                                class="targetable  ">
+                            </path>
+                            <text transform="matrix(1 0 0 1 140.565 181)" class="st0 st1 st2">1</text>
+                            <text transform="matrix(1 0 0 1 140.5651 394)" class="st0 st1 st2">2</text>
+                            <text transform="matrix(1 0 0 1 417.565 405)" class="st0 st1 st2">3</text>
+                            <text transform="matrix(1 0 0 1 447.565 168)" class="st0 st1 st2">4</text>
+                            <text transform="matrix(1 0 0 1 626.565 168)" class="st0 st1 st2">5</text>
+                            <text transform="matrix(1 0 0 1 699.565 411)" class="st0 st1 st2">6</text>
+                            <text transform="matrix(1 0 0 1 933.565 189)" class="st0 st1 st2">8</text>
+                            <text transform="matrix(1 0 0 1 926.565 383.12)" class="st0 st1 st2">7</text>
+                        </svg></a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            height: 100vh;
+        }
+
+        .bg-image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg-image:before {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            background-color: #000;
+            opacity: 1;
+        }
+
+        .bg-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(30px);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlayed-image {
+            width: 60%;
+            min-width: 500px;
+            /* height: 100%; */
+            position: relative;
+        }
+
+        .overlayed-image img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .selection {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        .targetable {
+            fill: #9ee147;
+            opacity: 0;
+            transition: .1s all ease-in;
+        }
+
+        .targetable:hover {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+
+        .st0 {
+            fill: #FFFFFF;
+            stroke-miterlimit: 10;
+            pointer-events: none
+        }
+
+        .st1 {
+            font-family: 'Arial';
+            font-weight: bold;
+        }
+
+        .st2 {
+            font-size: 60px;
+        }
+    </style>
+</body>
+
+</html>

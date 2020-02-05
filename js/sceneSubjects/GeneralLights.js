@@ -1,6 +1,6 @@
 function GeneralLights(scene) {
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.3);
-  const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.2);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+  const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.6);
   const spotLight = new THREE.SpotLight(0xffffff);
 
   spotLight.position.set(0, 5, -10);
@@ -16,9 +16,5 @@ function GeneralLights(scene) {
   scene.add(hemisphereLight);
   // scene.add(spotLight);
 
-  this.update = function(time) {
-    // directionalLight.position.z = (Math.sin(time) + 1.5) / 1.5;
-    // light.intensity = (Math.sin(time) + 1.5) / 1.5;
-    // light.color.setHSL( Math.sin(time), 0.5, 0.5 );
-  };
+  this.update = function(time) {};
 }

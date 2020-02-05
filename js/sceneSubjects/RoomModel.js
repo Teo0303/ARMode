@@ -1,23 +1,22 @@
 function RoomModel(scene, sphereCamera) {
   let loadingManager = new LoadingManager();
   const loader = new THREE.GLTFLoader(loadingManager);
+  var urls = [
+    "js/models/CubeMap/SanFrancisco/posx.jpg",
+    "js/models/CubeMap/SanFrancisco/negx.jpg",
+    "js/models/CubeMap/SanFrancisco/posy.jpg",
+    "js/models/CubeMap/SanFrancisco/negy.jpg",
+    "js/models/CubeMap/SanFrancisco/posz.jpg",
+    "js/models/CubeMap/SanFrancisco/negz.jpg"
+  ];
+
+  var BACKGROUND_COLOR = new THREE.Color(0xf0f0f0);
+  scene.background = new THREE.Color(BACKGROUND_COLOR);
+  var loader2 = new THREE.CubeTextureLoader(loadingManager);
+  scene.background = loader2.load(urls);
+
   let floor;
   let objects = [];
-  var texture = new THREE.TextureLoader(loadingManager).load(
-    "https://marketplace.canva.com/MAC2ik6BwYQ/1/thumbnail_large-1/canva-seamless-wood-floor-texture-MAC2ik6BwYQ.jpg"
-  );
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.wrapT = THREE.RepeatWrapping;
-  texture.repeat.set(8, 8);
-  texture.flipY = false;
-
-  var carpet = new THREE.TextureLoader(loadingManager).load(
-    "https://static.turbosquid.com/Preview/2016/04/06__11_17_10/Carpit_Gray_Brown_Yellow_Lack_COLOR.png71f3153b-3cca-4abf-a9ab-69d170b219b7Large.jpg"
-  );
-  carpet.wrapS = THREE.RepeatWrapping;
-  carpet.wrapT = THREE.RepeatWrapping;
-  carpet.repeat.set(2, 2);
-  carpet.flipY = false;
 
   loader.load(
     "js/models/mansion_02.02.20.gltf",
@@ -123,7 +122,6 @@ function LoadingManager() {
   let manager = new THREE.LoadingManager(() => {});
 
   manager.onLoad = function() {
-    // console.log(document.querySelec);
     const loadingScreen = document.querySelector(".intro-page");
 
     loadingScreen.classList.add("is-loaded");

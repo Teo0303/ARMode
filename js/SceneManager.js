@@ -36,8 +36,7 @@ function SceneManager(canvas) {
   function buildRender({ width, height }) {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvas,
-      antialias: true,
-      alpha: true
+      antialias: true
     });
     const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
     renderer.setPixelRatio(DPR);
@@ -45,6 +44,12 @@ function SceneManager(canvas) {
 
     renderer.gammaInput = true;
     renderer.gammaOutput = true;
+
+    renderer.shadowMap.enabled = true;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.Uncharted2ToneMapping;
+    // renderer.toneMapping = THREE.ReinhardToneMapping;
+    renderer.toneMappingExposure = 1.05;
 
     return renderer;
   }
@@ -63,17 +68,16 @@ function SceneManager(canvas) {
 
     camera.rotation.order = "YXZ";
     camera.position.y = 1.7;
-    camera.position.x = 10;
-    camera.position.z = 2.8;
-    camera.lookAt(0, 1, 3);
-
+    camera.position.x = -6.5;
+    camera.position.z = 3;
+    camera.lookAt(0, 1, -3);
+    camera.updateProjectionMatrix();
     return camera;
   }
 
   function createSceneSubjects(scene) {
     const sceneSubjects = [
       new GeneralLights(scene),
-      new SceneSubject(scene),
       new RoomModel(scene, sphereCamera),
       new FloorCircle(scene)
     ];
@@ -95,7 +99,19 @@ function SceneManager(canvas) {
 
   // FOR DESKTOP
 
+  let timer = null;
+  let counter = 0;
+
+  var euler = new THREE.Euler(0, 0, 0, "YXZ");
+  var PI_2 = Math.PI / 2;
+  var vec = new THREE.Vector3();
+
   this.onMouseDown = function(evt) {
+    counter = 0;
+
+    this.mouseDown = true;
+    document.getElementsByTagName("body")[0].style.cursor = "grab";
+
     let x = evt.clientX
       ? evt.clientX
       : evt.targetTouches[0]
@@ -107,9 +123,6 @@ function SceneManager(canvas) {
       ? evt.targetTouches[0].pageY
       : evt.changedTouches[evt.changedTouches.length - 1].pageY;
 
-    this.mouseDown = true;
-    document.getElementsByTagName("body")[0].style.cursor = "grab";
-
     event.preventDefault();
 
     mouse.set(
@@ -119,7 +132,7 @@ function SceneManager(canvas) {
 
     raycaster.setFromCamera(mouse, camera);
 
-    let objects = sceneSubjects[2].getObjects();
+    let objects = sceneSubjects[1].getObjects();
 
     var intersects = raycaster.intersectObjects(objects);
 
@@ -150,17 +163,10 @@ function SceneManager(canvas) {
 
   this.onMouseUp = function(evt) {
     this.mouseDown = false;
+
     document.getElementsByTagName("body")[0].style.cursor = "default";
 
-    let movementX =
-      evt.movementX || evt.mozMovementX || evt.webkitMovementX || 0;
-    let movementY =
-      evt.movementY || evt.mozMovementY || evt.webkitMovementY || 0;
-
-    // camera.rotation.y -= -movementX / Power1.easeIn.getRatio(0.5);
-    // camera.rotation.x -= -movementY / Power1.easeIn.getRatio(0.5);
-
-    console.log();
+    console.log(counter);
   };
 
   this.onMouseMove = function(evt) {
@@ -185,8 +191,8 @@ function SceneManager(canvas) {
     if (this.mouseDown) {
       document.getElementsByTagName("body")[0].style.cursor = "grabbing";
 
-      camera.rotation.y -= (-movementX / 600) * Power3.easeOut(1);
-      camera.rotation.x -= (-movementY / 600) * Power3.easeOut(1);
+      camera.rotation.y -= -movementX / 600;
+      camera.rotation.x -= -movementY / 600;
     }
 
     mouse.set(
@@ -195,16 +201,14 @@ function SceneManager(canvas) {
     );
 
     raycaster.setFromCamera(mouse, camera);
-    let floor = sceneSubjects[2].getFloor();
-
-    let objects = sceneSubjects[2].getObjects();
+    let floor = sceneSubjects[1].getFloor();
 
     var intersects = raycaster.intersectObjects(floor);
 
     if (intersects.length > 0) {
       var intersect = intersects[0];
 
-      rollOverMesh.position.copy(intersect.point).add({ x: 0, y: 0.01, z: 0 });
+      rollOverMesh.position.copy(intersect.point).add({ x: 0, y: 0.001, z: 0 });
     }
   };
 
@@ -230,18 +234,23 @@ function SceneManager(canvas) {
     let slideX = tmX - tsX,
       slideY = tmY - tsY;
     if (this.touchStart) {
-      camera.rotation.y -= -slideX / 2000;
-      camera.rotation.x -= -slideY / 2000;
+      camera.rotation.y -= -slideX / 10000;
+      camera.rotation.x -= -slideY / 10000;
     }
   };
+
+  function moveCamera() {}
 
   this.update = function() {
     const elapsedTime = clock.getElapsedTime();
 
+    // console.log(performance.now() / 1000);
     for (let i = 0; i < sceneSubjects.length; i++)
       sceneSubjects[i].update(elapsedTime);
 
+    camera.updateProjectionMatrix();
     renderer.render(scene, camera);
+
     sphereCamera.update(renderer, scene);
   };
 

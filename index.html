@@ -1,43 +1,120 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Three.js template</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
+<html lang="en">
 
-  <body>
-    <div class="intro-page">
-      <div class="wrapper">
-        <!-- <h1 class="title">WebVR Showroom</h1> -->
-        <!-- <div class="loader is-loading is-loaded">
-				99% загружено
-			</div> -->
-        <div class="loader-wrapper">
-          <div id="loader"></div>
-          <div class="loader-txt">
-            Пожалуйста подождите. 3D комната загружается...
-            <span class="percent"></span>
-          </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="city">
+
+        <img src="bg.png" alt="">
+        <div class="overlay">
+            <a href="rooms.html">
+                <svg class="loaded" width="100%" height="865px" viewBox="0 0 1920 1080">
+                    <path
+                        d="M792.4 997.2L761.4 1000.2L734.8 986.3V981.9L722.3 974.6L711.7 974.4L709.1 972.3L705.9 971.9L695.5 965.5L686.7 965.6L680.1 962.6V957.3L676.5 955.4L676.3 947.4V941.6L660.1 930.9V901.7L784 955.1H792.1L792.4 997.2Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M792.1 955.1H784L660.1 901.7V864.1L778.9 909.8L753.9 912V917.6L790.9 932.9V941.1H785.1V943.5L792 946.9L792.1 955.1Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.6 861.9V899.8L1027.9 901.8V908.2L928.9 919.3L915.9 915.8L910.9 916.1L906.3 915.8L901.4 916.1L897 917.8V922.2L806.9 892.2L806.3 883.1L800.4 882.3L793.8 883L791.6 884.4V909.4L790 908.9L778.9 909.8L660.1 864.1V827.9L827.4 874.5L835.8 873.8L864.3 880.9L1062.6 861.9Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.6 818.1V861.9L864.3 880.9L835.8 873.8L827.4 874.5L660.1 827.9V789.7L827.5 826.2L835.8 826.3L864.4 833.1L1062.6 818.1Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.6 769.4V818.1L864.4 833.1L835.8 826.3L827.5 826.2L660.1 789.7V750.1L828.3 775.8L836.6 775.9L867.1 779.6L1062.6 769.4Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.7 724.5L1062.6 769.4L867.1 779.6L836.6 775.9L828.3 775.8L660.1 750.1V712.4L827.5 727.5L835.8 727.6L864.4 730.4L1062.7 724.5Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.7 677.8V724.5L864.4 730.4L835.8 727.6L827.5 727.5L660.1 712.4V674.9L827.5 679.2L835.8 679.3L864.4 679.1L1062.7 677.8Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.7 631.7V677.8L864.4 679.1L835.8 679.3L827.5 679.2L660.1 674.9V636.1L827.5 631.3L835.8 631.4L865.4 630.2L1062.7 631.7Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.7 586.2V631.7L865.4 630.2L835.8 631.4L827.5 631.3L660.1 636.1L660 598.5L827.5 584.1L835.8 584.2L865.4 580L1062.7 586.2Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.8 536.9L1062.7 586.2L865.4 580L835.8 584.2L827.5 584.1L660 598.5V559.7L827.5 533.9L835.8 534L865.4 528.8L1062.8 536.9Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.8 494.5V536.9L865.4 528.8L835.8 534L827.5 533.9L660 559.7V524.2L827.5 487L835.8 487.1L865.4 479.9L1062.8 494.5Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.8 444.8V494.5L865.4 479.9L835.8 487.1L827.5 487L660 524.2V503.5V484.7L827.5 435.3L835.8 435.5L865.4 426.2L915.9 431.2L928.8 429.9L1027.8 440.4L1028.1 442.2L1062.8 444.8Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.8 402.7V444.8L1028.1 442.2L1027.8 440.4L928.8 429.9L915.9 431.2L865.4 426.2L835.8 435.5L827.5 435.3L660 484.7V447.5V447.4L827.3 390.3L836.1 388.8L865.3 376.9L915.2 383.6L928.7 382L1027.9 393V399.3L1062.8 402.7Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.9 359L1062.8 402.7L1027.9 399.3V393L928.7 382L915.2 383.6L865.3 376.9L836.1 388.8L827.3 390.3L660 447.4V410L827.3 341.7L836.1 342.2L865.3 329.3L915.2 333.6L928.7 330.4L1027.9 345.5V353.8L1062.9 359Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.9 311.4V359L1027.9 353.8V345.5L928.7 330.4L915.2 333.6L865.3 329.3L836.1 342.2L827.3 341.7L660 410V371.5L827.3 292.2L836.1 291.7L865.3 277.8L915.2 285.5L928.7 281.9L1027.9 299V305.3L1062.9 311.4Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1062.9 265V311.4L1027.9 305.3V299L928.7 281.9L915.2 285.5L865.3 277.8L836.1 291.7L827.3 292.2L660 371.5V334.1L827.3 242.7L836.1 244.2L865.3 228.3L915.2 237L928.7 232.4L1027.9 252.5V258.8L1062.9 265Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1063 220L1062.9 265L1027.9 258.8V252.5L928.7 232.4L915.2 237L865.3 228.3L836.1 244.2L827.3 242.7L660 334.1V294.7L827.3 195.8L836.1 197.2L865.3 177.6L915.2 187.8L928.7 183.5L1027.9 205.5V213.8L1063 220Z"
+                        class="targetable  appfloor"></path>
+                    <path
+                        d="M1063 149V220L1027.9 213.8V205.5L928.7 183.5L915.2 187.8L865.3 177.6L836.1 197.2L827.3 195.8L660 294.7V252.6L676 240.1L679.7 241.1L681.3 239.8V206.6L685.6 202.9L688.4 203.1L697.9 195.9L716.1 199.5L717 198.9L744.1 204.1V177.9L765.1 161.2L765 143.2L782 129.7L782.2 125.3L788 120.3L823.9 129.3L828 126L836 128V120L866 98L1063 149Z"
+                        class="targetable selected appfloor"></path>
+                </svg>
+            </a>
         </div>
-      </div>
-      <div class="right-image">
-        <img src="" alt="" />
-      </div>
     </div>
-    <canvas id="canvas"></canvas>
 
-    <script src="js/libs/three.min.js"></script>
-    <script src="js/libs/gsap.min.js"></script>
-    <script src="js/libs/Stats.min.js"></script>
-    <script src="js/libs/GLTFLoader.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100vh;
+        }
 
-    <script src="js/sceneSubjects/GeneralLights.js"></script>
-    <script src="js/sceneSubjects/SceneSubject.js"></script>
-    <script src="js/sceneSubjects/RoomModel.js"></script>
-    <script src="js/sceneSubjects/FloorCircle.js"></script>
+        .city {
+            position: relative;
+            height: 100%;
+        }
 
-    <script src="js/SceneManager.js"></script>
-    <script src="js/main.js"></script>
-  </body>
+        .city img {
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            height: 100%;
+        }
+
+        .loaded {}
+
+        .appfloor {
+            fill: #9ee147;
+            opacity: 0;
+        }
+
+        .appfloor:hover {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+    </style>
+
+</body>
+
 </html>
