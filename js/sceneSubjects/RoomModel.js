@@ -2,21 +2,21 @@ function RoomModel(scene, sphereCamera) {
   let loadingManager = new LoadingManager();
   const loader = new THREE.GLTFLoader(loadingManager);
   var urls = [
-    "js/models/CubeMap/SanFrancisco/posx.jpg",
-    "js/models/CubeMap/SanFrancisco/negx.jpg",
-    "js/models/CubeMap/SanFrancisco/posy.jpg",
-    "js/models/CubeMap/SanFrancisco/negy.jpg",
-    "js/models/CubeMap/SanFrancisco/posz.jpg",
-    "js/models/CubeMap/SanFrancisco/negz.jpg"
+    "assets/CubeMap/SanFrancisco/posx.jpg",
+    "assets/CubeMap/SanFrancisco/negx.jpg",
+    "assets/CubeMap/SanFrancisco/posy.jpg",
+    "assets/CubeMap/SanFrancisco/negy.jpg",
+    "assets/CubeMap/SanFrancisco/posz.jpg",
+    "assets/CubeMap/SanFrancisco/negz.jpg"
   ];
 
   var urls2 = [
-    "js/models/CubeMap/Yokohama/posx.jpg",
-    "js/models/CubeMap/Yokohama/negx.jpg",
-    "js/models/CubeMap/Yokohama/posy.jpg",
-    "js/models/CubeMap/Yokohama/negy.jpg",
-    "js/models/CubeMap/Yokohama/posz.jpg",
-    "js/models/CubeMap/Yokohama/negz.jpg"
+    "assets/CubeMap/Yokohama/posx.jpg",
+    "assets/CubeMap/Yokohama/negx.jpg",
+    "assets/CubeMap/Yokohama/posy.jpg",
+    "assets/CubeMap/Yokohama/negy.jpg",
+    "assets/CubeMap/Yokohama/posz.jpg",
+    "assets/CubeMap/Yokohama/negz.jpg"
   ];
 
   var BACKGROUND_COLOR = new THREE.Color(0xf0f0f0);
