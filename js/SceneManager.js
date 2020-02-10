@@ -11,6 +11,9 @@ function SceneManager(canvas) {
     height: canvas.height
   };
 
+  let stats = createStats();
+  document.body.appendChild(stats.domElement);
+
   const scene = buildScene();
   const renderer = buildRender(screenDimensions);
   const raycaster = buildRaycaster();
@@ -39,7 +42,8 @@ function SceneManager(canvas) {
       canvas: canvas,
       antialias: true
     });
-    const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
+    // const DPR = window.devicePixelRatio ? window.devicePixelRatio : 1;
+    const DPR = 1;
     renderer.setPixelRatio(DPR);
     renderer.setSize(width, height);
 
@@ -252,18 +256,25 @@ function SceneManager(canvas) {
 
   function moveCamera() {}
 
-  this.update = function() {
-    const elapsedTime = clock.getElapsedTime();
-
-    // console.log(performance.now() / 1000);
-    for (let i = 0; i < sceneSubjects.length; i++)
-      sceneSubjects[i].update(elapsedTime);
-
+  renderer.setAnimationLoop(function() {
     camera.updateProjectionMatrix();
-    renderer.render(scene, camera);
 
     sphereCamera.update(renderer, scene);
-  };
+    renderer.render(scene, camera);
+    stats.update();
+  });
+
+  // this.update = function() {
+  //   const elapsedTime = clock.getElapsedTime();
+
+  //   for (let i = 0; i < sceneSubjects.length; i++)
+  //     sceneSubjects[i].update(elapsedTime);
+
+  //   camera.updateProjectionMatrix();
+  //   renderer.render(scene, camera);
+
+  //   sphereCamera.update(renderer, scene);
+  // };
 
   this.onWindowResize = function() {
     const { width, height } = canvas;
@@ -276,4 +287,14 @@ function SceneManager(canvas) {
 
     renderer.setSize(width, height);
   };
+
+  function createStats() {
+    var stats = new Stats();
+    stats.setMode(0);
+    stats.domElement.style.position = "absolute";
+    stats.domElement.style.left = "0";
+    stats.domElement.style.top = "0";
+
+    return stats;
+  }
 }
