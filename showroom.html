@@ -9,21 +9,28 @@
 
 <body>
   <div class="intro-page">
+    <div class="border"></div>
     <div class="wrapper">
-      <!-- <h1 class="title">WebVR Showroom</h1> -->
-      <!-- <div class="loader is-loading is-loaded">
-				99% загружено
-			</div> -->
-      <div class="loader-wrapper">
-        <div id="loader"></div>
-        <div class="loader-txt">
-          Пожалуйста подождите. 3D комната загружается...
-          <span class="percent"></span>
+      <div class="content">
+        <h1 class='title'>3D VIEWER</h1>
+        <p class="desc">Step inside a virtual showroom built with WebGL and WebVR.
+          More info</p>
+        <div class="progress">
+          <div class="progress__active"></div>
+          <div class="progress__text">
+            ЗАГРУЖАЕТЬСЯ <span class="progress__number"></span></div>
         </div>
+
+        <div class="start">ПОСМОТРЕТЬ КОМНАТУ</div>
       </div>
+      <footer>
+        Made by <a href="https://raisense.uz"><strong>Raisense</strong></a>
+
+
+      </footer>
     </div>
     <div class="right-image">
-      <img src="" alt="" />
+      <img src="./assets/images/first-scene.png" alt="" />
     </div>
   </div>
   <canvas id="canvas"></canvas>

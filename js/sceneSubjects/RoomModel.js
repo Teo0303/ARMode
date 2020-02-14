@@ -128,22 +128,36 @@ function RoomModel(scene, sphereCamera) {
 }
 
 function LoadingManager() {
-  let manager = new THREE.LoadingManager(() => {});
+  let manager = new THREE.LoadingManager();
 
   manager.onLoad = function() {
     const loadingScreen = document.querySelector(".intro-page");
+    const border = document.querySelector(".border");
+    const wrapper = document.querySelector(".wrapper");
+    const progress = document.querySelector(".progress");
+    const start = document.querySelector(".start");
 
-    loadingScreen.classList.add("is-loaded");
+    progress.style.display = "none";
+    start.style.display = "block";
 
-    loadingScreen.addEventListener("transitionend", function(e) {
-      e.target.style.display = "none";
+    start.addEventListener("click", () => {
+      wrapper.classList.add("hidden");
+      wrapper.addEventListener("transitionend", (e) => {
+        border.classList.add("hidden");
+      });
+
+      border.addEventListener("transitionend", () => {
+        loadingScreen.style.display = "none";
+      });
     });
   };
 
   manager.onProgress = function(url, itemsLoaded, itemsTotal) {
-    let progressElement = document.querySelector(".percent");
-    let progress = Math.floor((itemsLoaded / itemsTotal) * 100) + "%";
-    progressElement.innerHTML = progress;
+    let progressBar = document.querySelector(".progress__active");
+    let progressNum = document.querySelector(".progress__number");
+    let progress = Math.floor((itemsLoaded / itemsTotal) * 100);
+    progressBar.style.width = progress + "%";
+    progressNum.innerHTML = progress + "%";
   };
 
   manager.onError = function(url) {

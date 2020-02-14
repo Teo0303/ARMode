@@ -198,14 +198,6 @@ function SceneManager(canvas) {
       camera.rotation.x -= -movementY / 600;
 
       camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, camera.rotation.x));
-
-      // euler.setFromQuaternion(camera.quaternion);
-
-      // euler.y = -movementX * 6000;
-      // euler.x = -movementY * 6000;
-
-      // euler.x = Math.max(-PI_2, Math.min(PI_2, euler.x));
-      // camera.quaternion.setFromEuler(euler);
     }
 
     mouse.set(
@@ -218,7 +210,7 @@ function SceneManager(canvas) {
 
     var intersects = raycaster.intersectObjects(floor);
 
-    if (intersects.length > 0) {
+    if (intersects.length > 0 && moving == false) {
       var intersect = intersects[0];
 
       rollOverMesh.position.copy(intersect.point).add({ x: 0, y: 0.001, z: 0 });
@@ -254,10 +246,13 @@ function SceneManager(canvas) {
     }
   };
 
-  function moveCamera() {}
-
   renderer.setAnimationLoop(function() {
     camera.updateProjectionMatrix();
+
+    const elapsedTime = clock.getElapsedTime();
+
+    for (let i = 0; i < sceneSubjects.length; i++)
+      sceneSubjects[i].update(elapsedTime);
 
     sphereCamera.update(renderer, scene);
     renderer.render(scene, camera);
