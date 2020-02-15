@@ -103,16 +103,16 @@ function SceneManager(canvas) {
   }
 
   // FOR DESKTOP
+  var rotateStart = new THREE.Vector2();
+  var rotateEnd = new THREE.Vector2();
+  var rotateDelta = new THREE.Vector2();
+  var rotateSpeed = 0.25;
 
-  let timer = null;
-  let counter = 0;
-
-  var euler = new THREE.Euler(0, 0, 0, "YXZ");
   var PI_2 = Math.PI / 2;
-  var vec = new THREE.Vector3();
 
   this.onMouseDown = function(evt) {
     this.mouseDown = true;
+    evt.preventDefault();
     document.getElementsByTagName("body")[0].style.cursor = "grab";
 
     let x = evt.clientX
@@ -126,7 +126,7 @@ function SceneManager(canvas) {
       ? evt.targetTouches[0].pageY
       : evt.changedTouches[evt.changedTouches.length - 1].pageY;
 
-    event.preventDefault();
+    rotateStart.set(event.clientX, event.clientY);
 
     mouse.set(
       (x / window.innerWidth) * 2 - 1,
@@ -136,7 +136,6 @@ function SceneManager(canvas) {
     raycaster.setFromCamera(mouse, camera);
 
     let objects = sceneSubjects[1].getObjects();
-
     var intersects = raycaster.intersectObjects(objects);
 
     if (
@@ -168,8 +167,6 @@ function SceneManager(canvas) {
     this.mouseDown = false;
 
     document.getElementsByTagName("body")[0].style.cursor = "default";
-
-    console.log(counter);
   };
 
   this.onMouseMove = function(evt) {
@@ -186,16 +183,18 @@ function SceneManager(canvas) {
       ? evt.targetTouches[0].pageY
       : evt.changedTouches[evt.changedTouches.length - 1].pageY;
 
-    let movementX =
-      evt.movementX || evt.mozMovementX || evt.webkitMovementX || 0;
-    let movementY =
-      evt.movementY || evt.mozMovementY || evt.webkitMovementY || 0;
-
     if (this.mouseDown) {
       document.getElementsByTagName("body")[0].style.cursor = "grabbing";
 
-      camera.rotation.y -= -movementX / 600;
-      camera.rotation.x -= -movementY / 600;
+      rotateEnd.set(evt.clientX, evt.clientY);
+      rotateDelta
+        .subVectors(rotateEnd, rotateStart)
+        .multiplyScalar(rotateSpeed);
+
+      camera.rotation.y -= -(2 * Math.PI * rotateDelta.x) / canvas.clientHeight;
+      camera.rotation.x -= -(2 * Math.PI * rotateDelta.y) / canvas.clientHeight;
+
+      rotateStart.copy(rotateEnd);
 
       camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, camera.rotation.x));
     }
@@ -219,31 +218,38 @@ function SceneManager(canvas) {
 
   // FOR TABLETS
 
-  let tsX, tsY;
-
   this.onTouchStart = function(evt) {
-    this.touchStart = true;
-    tsX = evt.touches[0].clientX;
-    tsY = evt.touches[0].clientY;
+    if (evt.touches.length == 1) {
+      rotateStart.set(evt.touches[0].pageX, evt.touches[0].pageY);
+    } else {
+      var x = 0.5 * (evt.touches[0].pageX + evt.touches[1].pageX);
+      var y = 0.5 * (evt.touches[0].pageY + evt.touches[1].pageY);
+
+      rotateStart.set(x, y);
+    }
   };
 
-  this.onTouchEnd = function(evt) {
-    this.touchStart = false;
-  };
+  this.onTouchEnd = function(evt) {};
 
   this.onTouchMove = function(evt) {
-    evt.preventDefault();
+    if (evt.touches.length == 1) {
+      rotateEnd.set(evt.touches[0].pageX, evt.touches[0].pageY);
+    } else {
+      var xx = 0.5 * (evt.touches[0].pageX + evt.touches[1].pageX);
+      var yy = 0.5 * (evt.touches[0].pageY + evt.touches[1].pageY);
 
-    let tmX = evt.touches[0].clientX;
-    let tmY = evt.touches[0].clientY;
-    let slideX = tmX - tsX,
-      slideY = tmY - tsY;
-    if (this.touchStart) {
-      camera.rotation.y -= -slideX / 10000;
-      camera.rotation.x -= -slideY / 10000;
-
-      camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, camera.rotation.x));
+      rotateEnd.set(xx, yy);
     }
+
+    rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(rotateSpeed);
+
+    camera.rotation.y -= -(2 * Math.PI * rotateDelta.x) / canvas.clientHeight;
+
+    camera.rotation.x -= -(2 * Math.PI * rotateDelta.y) / canvas.clientHeight;
+
+    rotateStart.copy(rotateEnd);
+
+    camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, camera.rotation.x));
   };
 
   renderer.setAnimationLoop(function() {

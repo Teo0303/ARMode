@@ -138,9 +138,11 @@ function CustomControls(camera, canvas, raycaster) {
 
     let tmX = evt.touches[0].clientX;
     let tmY = evt.touches[0].clientY;
+
     let slideX = tmX - tsX,
       slideY = tmY - tsY;
     if (this.touchStart) {
+      console.log(slideX, slideY);
       camera.rotation.y -= -slideX / 3000;
       camera.rotation.x -= -slideY / 3000;
     }
